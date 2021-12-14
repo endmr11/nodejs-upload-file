@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <title>Dosya Yükleme</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#yuklemeFormu').submit(function () {
+                $("#durum").empty().text("Dosya Yükleniyor...");
+                $(this).ajaxSubmit({
+                    error: function (xhr) {
+                        status('Hata: ' + xhr.status);
+                    },
+                    success: function (response) {
+                        console.log(response)
+                        $("#durum").empty().text(response);
+                    }
+                });
+                return false;
+            });
+        });  
+    </script>
+</head>
+
+<body>
+    <h1>Dosya Yükleme</h1>
+    <form id="yuklemeFormu" enctype="multipart/form-data" action="/resimYukle" method="post">
+        <input type="file" name="dosyam" /><br /><br />
+        <input type="submit" value="Resim Yükle" name="submit"><br /><br />
+        <span id="durum"></span>
+    </form>
+</body>
+
+</html>
